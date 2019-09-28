@@ -26,7 +26,7 @@ def index():
         db.session.add(new_post)
         db.session.commit()
 
-    blog_posts = Blog.query.filter_by(id="4").all()
+    blog_posts = Blog.query.all()
     return render_template('blog.html', title="Build A Blog", blog_posts=blog_posts)
         
 

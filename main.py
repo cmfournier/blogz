@@ -36,17 +36,11 @@ def newposts():
         title_error = ''
         post_error = ''
 
-        if len(title_name) == 0 and len(blog_post) == 0:
-            title_error = 'You must have a title!'
-            post_error = 'You must enter text for your blog post!'
-            
-        if len(title_name) > 0 and len(blog_post) == 0:
+        if len(title_name) == 0:
             title_error = "You must have a title!"
-            return render_template('newpost.html',title_name=title_name, title_error=title_error)
-        
-        if len(blog_post) > 0 and len(title_name) == 0:
+            
+        if len(blog_post) == 0:
             post_error = "You must enter text for your blog post!"
-            return render_template('newpost.html', blog_post=blog_post, post_error=post_error)
             
         if not title_error and not post_error:
 

@@ -2,35 +2,15 @@
 
 {% block content %}
       <h1>Build A Blog</h1>
-      <form method='POST'>
-          <label>
-              Title for your new blog:
-              <input type='text' name='blog_title' />
-          </label>
-          <br>
-          <br>
-          <label>
-              Your new blog:
-              <textarea name='blog_post' rows='5' cols='30'>
-              </textarea>
-          </label>
-          <br>
-          <br>
-          <input type='submit' value='Add Entry' />
-      </form>
+
 
       <hr />
 
-      {% if blog_posts|length == 0 %}
-      <p>No entries yet</p>
-      {% else %}
 
-            {% for post in blog_posts %}
-            <h2>{{post.title}}</h2>
-            {{post.body}}
-            {% endfor %}
+        {% for post in blog_posts %}
+        <h2>{{post.title}}</h2>
+        {{post.body}}
+        {% endfor %}
 
-
-      {% endif %}
 
 {% endblock %}

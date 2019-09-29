@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
+    <a href="/blog">Main Blog Page</a>
+    <a href="/newpost">Add a New Entry</a>
     <head>
         <title>{{title}}</title>
+        <style>
+                .error {
+                    color: red;
+                }
+        </style>
     </head>
 <body>
 
     {% block content %}
     {% endblock %}
-    
+
 </body>
 </html>

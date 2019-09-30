@@ -2,19 +2,21 @@
 
 {% block content %}
 
-    <h1>Add a Blog Entry</h1>
+    <h1 align='center'>Add a Blog Entry</h1>
 
 <form method='POST'>
-    <label>
+    <label for='title_name'>
         Title for your new blog:
-        <input type='text' name='blog_title' />
+        <br>
+        <input class="box" type='text' name='blog_title' />
         <span class="error">{{title_error}}</span>
     </label>
     <br>
     <br>
-    <label>
+    <label for='blog_post'>
         Your new blog:
-        <input type="text" name='blog_post'>
+        <br>
+        <textarea class="box" name='blog_post' type="text" rows="10" cols="40"></textarea>
         <span class="error">{{post_error}}</span>
     </label>
     <br>

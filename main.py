@@ -21,7 +21,7 @@ def index():
     post_id = request.args.get('id')
     if (post_id):
         ind_entry = Blog.query.get(post_id)
-        return render_template('ind_entry_page.html', ind_entry=ind_entry)
+        return render_template('ind_entry_page.html', title="Build A Blog", ind_entry=ind_entry)
     else:
         all_posts = Blog.query.all()
         return render_template('blog.html', title="Build A Blog", blog_posts=all_posts)

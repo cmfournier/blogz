@@ -8,15 +8,15 @@
     <label for='title_name'>
         Title for your new blog:
         <br>
-        <input class="box" type='text' name='blog_title' />
+        <input type='text' name='blog_title' value='{{title_name}}'/>
         <span class="error">{{title_error}}</span>
     </label>
     <br>
     <br>
-    <label for='blog_post'>
+    <label for='blog_body'>
         Your new blog:
         <br>
-        <textarea class="box" name='blog_post' type="text" rows="10" cols="40"></textarea>
+        <input type = "text" name='blog_body' value='{{blog_post}}' rows="10" cols="40"/>
         <span class="error">{{post_error}}</span>
     </label>
     <br>

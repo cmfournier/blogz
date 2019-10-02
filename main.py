@@ -32,7 +32,7 @@ def newposts():
     
     if request.method == 'POST':
         title_name = request.form['blog_title']
-        blog_post = request.form['blog_post']
+        blog_post = request.form['blog_body']
         title_error = ''
         post_error = ''
 
@@ -41,7 +41,7 @@ def newposts():
             
         if len(blog_post) == 0:
             post_error = "You must enter text for your blog post!"
-            
+
         if not title_error and not post_error:
 
             new_post = Blog(title_name, blog_post)
@@ -50,8 +50,8 @@ def newposts():
             return redirect('/blog?id=' + str(new_post.id))
         else:
             return render_template('newpost.html', title="Add Blog Entry", 
-            title_name=title_name,title_error=title_error, 
-            blog_post=blog_post, post_error=post_error)
+            title_name=title_name,blog_post=blog_post, 
+            title_error=title_error,post_error=post_error)
     else:
         return render_template('newpost.html', title="Add Blog Entry")
 

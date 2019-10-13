@@ -44,6 +44,7 @@ def login():
 
         if not user:
             flash('Username does not exist','error')
+            return render_template('login.html', title="Login")
 
         if user and user.password == password:
             session['username'] = username
@@ -61,62 +62,46 @@ def signup():
         password = request.form['password']
         verify = request.form['verify']
 
-        username_error = ''
-        password_error = ''
-        verify_error = ''
-
 #verify required fields aren't empty
         if len(username) == 0:
-            username_error = "That's not a valid username"
+            flash("That's not a valid username","error")
+            return render_template('signup.html', title="Sign Up")
 
         if len(password) == 0:
-            password_error = "That's not a valid password"
-            password = ''
+            flash("That's not a valid password","error")
+            return render_template('signup.html', title="Sign Up")
 
         if len(verify) == 0:
-            verify_error = "Passwords don't match"
-            password = ''
-            verify = ''
+            flash("Passwords don't match","error")
+            return render_template('signup.html', title="Sign Up")
 
 #verify username is valid length
         if len(username) < 3:
-            username_error = "Username must be at least 3 characters long"
-            username = ''
-            password = ''
-            verify = ''
+            flash("Username must be at least 3 characters long","error")
+            return render_template('signup.html', title="Sign Up")
 
 #verify password is valid length
         if len(password) < 3:
-            password_error = "Password must be at least 3 characters long"
-            password = ''
-            verify = ''
+            flash("Password must be at least 3 characters long","error")
+            return render_template('signup.html', title="Sign Up")
 
 #ensure passwords match
         if password != verify:
-            verify_error = "Passwords don't match"
-            password = ''
-            verify = ''
+            flash("Passwords don't match", "error")
+            return render_template('signup.html', title="Sign Up")
 
 #verify username and add to db if new
         existing_user = User.query.filter_by(username=username).first()
 
-        if username == existing_user:
-            username_error = "Username already exists"
-            username = ''
-            password = ''
-            verify = ''
-
-        if not username_error and not password_error and not verify_error and not existing_user:
+        if not existing_user:
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
             return redirect('/newpost')
         else:
-            return render_template('signup.html', title="Sign Up",
-            username=username, password=password,
-            username_error=username_error, password_error=password_error,
-            verify_error=verify_error)
+            flash("Username already exists", "error")
+            return render_template('signup.html', title="Sign Up")
     else:
         return render_template('signup.html', title="Sign Up")
 
@@ -128,13 +113,18 @@ def index():
 @app.route('/blog')
 def list_blogs():
     post_id = request.args.get('id')
-    #user_id = User.query.filter_by(username=session['username']).first()
+    user_id = request.args.get('owner_id')
+
     if (post_id):
         ind_entry = Blog.query.get(post_id)
-        return render_template('ind_entry_page.html', title="Build A Blog", ind_entry=ind_entry) #, ind_user=ind_user)
+        return render_template('ind_entry_page.html', title="Blogz", ind_entry=ind_entry)
     else:
-        all_posts = Blog.query.all()
-        return render_template('blog.html', title="Build A Blog", blog_posts=all_posts)
+        if (user_id):
+            ind_user_posts = Blog.query.filter_by(owner_id=user_id)
+            return render_template('ind_user_page.html', title="Blogz", posts = ind_user_posts)
+        else:
+            all_posts = Blog.query.all()
+            return render_template('blog.html', title="Blogz", blog_posts=all_posts)
 
         
 @app.route('/newpost', methods = ['POST','GET'])

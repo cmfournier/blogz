@@ -4,6 +4,7 @@
 
 <h1>{{ind_entry.title}}</h1>
 {{ind_entry.body}}
-Written by {{ind_user.username}}
+<div>
+Written by <a href='/blog?owner_id={{ind_entry.owner_id}}'>{{ind_entry.owner.username}}</a></div>
 
 {% endblock %}

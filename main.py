@@ -64,15 +64,15 @@ def signup():
 
 #verify required fields aren't empty
         if len(username) == 0:
-            flash("That's not a valid username","error")
+            flash("Username cannot be blank","error")
             return render_template('signup.html', title="Sign Up")
 
         if len(password) == 0:
-            flash("That's not a valid password","error")
+            flash("Password cannot be blank","error")
             return render_template('signup.html', title="Sign Up")
 
         if len(verify) == 0:
-            flash("Passwords don't match","error")
+            flash("Please verify your password in the Verify field","error")
             return render_template('signup.html', title="Sign Up")
 
 #verify username is valid length
@@ -131,7 +131,7 @@ def list_blogs():
 def newposts():
 
     owner = User.query.filter_by(username=session['username']).first()
-    
+
     if request.method == 'POST':
         title_name = request.form['blog_title']
         blog_post = request.form['blog_body']

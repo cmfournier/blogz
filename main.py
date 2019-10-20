@@ -33,6 +33,7 @@ class User(db.Model):
 def require_login():
     allowed_routes = ['login', 'list_blogs', 'index', 'signup']
     if request.endpoint not in allowed_routes and 'username' not in session:
+        flash("You must be logged in to make a post", "error")
         return redirect('/login')
 
 @app.route('/login', methods = ['POST','GET'])
